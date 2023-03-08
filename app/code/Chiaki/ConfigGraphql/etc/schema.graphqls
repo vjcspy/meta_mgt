@@ -1,0 +1,26 @@
+type ChiakiConfig @doc(description: "Configuration for chiaki project"){
+    key: String!
+    value: String!
+    user_id: String!
+    store_id: String
+}
+
+type Query {
+    chiakiConfig (
+        user_id: String!
+        key: String
+        store_id: String @doc(description: "Store ID")
+    ): [ChiakiConfig] @resolver(class: "Chiaki\\ConfigGraphql\\Model\\Resolver\\Config")
+}
+
+
+type Mutation {
+    saveChiakiConfig(input: ChiakiInput): ChiakiConfig @resolver(class: "\\Chiaki\\ConfigGraphql\\Model\\Resolver\\CreateConfig")
+}
+
+input ChiakiInput {
+    key: String
+    value: String
+    user_id: String
+    store_id: String
+}

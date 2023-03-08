@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add action="chiaki_page/chiakipage/index" id="Chiaki_Page::chiaki_page_chiakipage" module="Chiaki_Page"
+             parent="Chiaki::top_level" resource="Magento_Backend::content" sortOrder="9999" title="UI PAGE CONFIG"/>
+    </menu>
+</config>

@@ -1,0 +1,81 @@
+<?php
+
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+declare(strict_types=1);
+
+namespace Chiaki\CatalogGraphql\Model\Resolver\Product;
+
+use Magento\Catalog\Api\Data\ProductInterface;
+use Magento\Catalog\Model\ProductFactory;
+use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\GraphQl\Config\Element\Field;
+use Magento\Framework\GraphQl\Query\Resolver\ContextInterface;
+use Magento\Framework\GraphQl\Query\ResolverInterface;
+use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
+
+/**
+ * @inheritdoc
+ *
+ * Format a product's media gallery information to conform to GraphQL schema representation
+ */
+class MediaGallery implements ResolverInterface
+{
+    /**
+     * @var ProductFactory
+     */
+    private $productFactory;
+
+    /**
+     * @param ProductFactory $productFactory
+     */
+    public function __construct(
+        ProductFactory $productFactory
+    ) {
+        $this->productFactory = $productFactory;
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * Format product's media gallery entry data to conform to GraphQL schema
+     *
+     * @param \Magento\Framework\GraphQl\Config\Element\Field $field
+     * @param ContextInterface                                $context
+     * @param ResolveInfo                                     $info
+     * @param array|null                                      $value
+     * @param array|null                                      $args
+     *
+     * @return array
+     * @throws \Exception
+     */
+    public function resolve(
+        Field       $field,
+                    $context,
+        ResolveInfo $info,
+        array       $value = null,
+        array       $args = null
+    ) {
+        if (!isset($value['model'])) {
+            throw new LocalizedException(__('"model" value should be specified'));
+        }
+
+        /** @var ProductInterface $product */
+        $product = $value['model'];
+        $product = $this->productFactory->create()->load($product->getId());
+
+        $mediaGalleryEntries = [];
+
+        foreach ($product->getMediaGalleryEntries() ?? [] as $key => $entry) {
+            $mediaGalleryEntries[$key]          = $entry->getData();
+            $mediaGalleryEntries[$key]['model'] = $product;
+            if ($entry->getExtensionAttributes() && $entry->getExtensionAttributes()->getVideoContent()) {
+                $mediaGalleryEntries[$key]['video_content']
+                    = $entry->getExtensionAttributes()->getVideoContent()->getData();
+            }
+        }
+        return $mediaGalleryEntries;
+    }
+}

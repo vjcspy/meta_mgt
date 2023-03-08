@@ -1,0 +1,18 @@
+{
+    "chiaki_page_chiakipage": {
+        "column": {
+            "chiakipage_id": true,
+            "type": true,
+            "config_data": true,
+            "store_id": true,
+            "user_id": true,
+            "url": true,
+            "additional_data": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "CHIAKI_PAGE_CHIAKIPAGE_USER_ID_STORE_ID_TYPE_URL": true,
+            "CHIAKI_PAGE_CHIAKIPAGE_USER_ID_STORE_ID_TYPE": true
+        }
+    }
+}

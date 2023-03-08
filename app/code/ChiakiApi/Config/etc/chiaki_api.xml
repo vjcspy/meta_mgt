@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="chiaki_api.xsd">
+    <actions>
+        <action type="save-chiaki-config">
+            <class>ChiakiApi\Config\Reducers\ConfigReducer</class>
+        </action>
+    </actions>
+    <actions>
+        <action type="get-checkout-config">
+            <class>ChiakiApi\Config\Reducers\ConfigReducer</class>
+        </action>
+    </actions>
+</config>

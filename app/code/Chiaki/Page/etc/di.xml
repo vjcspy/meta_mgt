@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Chiaki\Page\Api\ChiakiPageRepositoryInterface" type="Chiaki\Page\Model\ChiakiPageRepository"/>
+	<preference for="Chiaki\Page\Api\Data\ChiakiPageInterface" type="Chiaki\Page\Model\Data\ChiakiPage"/>
+	<preference for="Chiaki\Page\Api\Data\ChiakiPageSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="Chiaki\Page\Model\ResourceModel\ChiakiPage\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">chiaki_page_chiakipage</argument>
+			<argument name="resourceModel" xsi:type="string">Chiaki\Page\Model\ResourceModel\ChiakiPage\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="chiaki_page_chiakipage_listing_data_source" xsi:type="string">Chiaki\Page\Model\ResourceModel\ChiakiPage\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+</config>

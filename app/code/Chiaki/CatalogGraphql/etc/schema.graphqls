@@ -1,0 +1,83 @@
+type Query {
+    catalogCategoryLayerFilters (
+        category_id: Int! @doc(description: "Category ID")
+    ): [CatalogCategoryLayerFilter] @resolver(class: "Chiaki\\CatalogGraphql\\Model\\Resolver\\CatalogCategoryFilters") @doc(description: "Get available filter list from specific category")
+    catalogCategoryListingData(
+        search: String @doc(description: "Performs a full-text search using the specified key words."),
+        filters: [CatalogCategoryListingFilter]
+        pageSize: Int = 20 @doc(description: "Specifies the maximum number of results to return at once. This attribute is optional."),
+        currentPage: Int = 1 @doc(description: "Specifies which page of results to return. The default value is 1."),
+        sort: ProductAttributeSortInput @doc(description: "Specifies which attributes to sort on, and whether to return the results in ascending or descending order.")
+    ) : Products
+    @resolver(class: "Chiaki\\CatalogGraphql\\Model\\Resolver\\CatalogCategoryListingData") @doc(description: "Custom gralql for get catalog category listing data")
+    productAdditonInformation (
+        sku: String!
+    ) : ProductAdditionInformation @resolver(class: "Chiaki\\CatalogGraphql\\Model\\Resolver\\ProductAdditionInformation") @cache(cacheIdentity: "Chiaki\\CatalogGraphql\\Model\\Resolver\\ProductIdentity")
+    bestSellerProduct(
+        pageSize: Int = 20 @doc(description: "Specifies the maximum number of results to return at once. This attribute is optional."),
+        currentPage: Int = 1 @doc(description: "Specifies which page of results to return. The default value is 1."),
+    ): BestSellerProducts @doc(description: "Returns an array of best seller product.") @resolver(class: "Chiaki\\CatalogGraphql\\Model\\Resolver\\BestSeller") @cache(cacheable: false)
+    bestSellerProductInCategory(
+        category_id: Int! @doc(description: "Category ID")
+        pageSize: Int = 20 @doc(description: "Specifies the maximum number of results to return at once. This attribute is optional."),
+        currentPage: Int = 1 @doc(description: "Specifies which page of results to return. The default value is 1."),
+    ): BestSellerProducts @doc(description: "Returns an array of best seller product.") @resolver(class: "Chiaki\\CatalogGraphql\\Model\\Resolver\\BestSellerOfCategory") @cache(cacheable: false)
+}
+
+type ProductAdditionInformation @doc(description: "Use in product detail page") {
+    id: Int
+    data: String
+}
+
+input CatalogCategoryListingFilter @doc(description: "Catalog Listing filter"){
+    code: String!
+    data: FilterEqualTypeInput!
+}
+
+type CatalogCategoryLayerFilter @doc(description: "Filter data") {
+    name:String
+    type:String
+    fe_model:String
+    item_count: Int
+    options: [CatalogCategoryLayerFilterOption]
+    swatches: [CatalogCategoryLayerFilterSwatch]
+}
+
+type CatalogCategoryLayerFilterOption @doc(description: "Filter Item data") {
+    label:String
+    count:Int
+    value:String
+}
+
+type CatalogCategoryLayerFilterSwatch @doc(description: "Filter Item data") {
+    swatch_id:Int
+    option_id:Int
+    store_id:Int
+    type: Int
+    value: String
+}
+
+type Attribute {
+    swatches: [CatalogCategoryLayerFilterSwatch] @resolver(class: "Chiaki\\CatalogGraphql\\Model\\Resolver\\SwatchAttribute") @doc(description: "Swatch attribute data")
+}
+
+
+interface ProductInterface {
+    listing_images: [ListingImageInterface] @doc(description: "An array of Media Gallery Image objects.") @resolver(class: "Chiaki\\CatalogGraphql\\Model\\Resolver\\Product\\MediaGallery")
+}
+
+interface ListingImageInterface @doc(description: "Contains basic information about a product image or video.") @typeResolver(class: "Chiaki\\CatalogGraphql\\Model\\MediaGalleryTypeResolver") {
+    url: String @doc(description: "The URL of the product image or video.") @resolver(class: "Chiaki\\CatalogGraphql\\Model\\Resolver\\Product\\MediaGallery\\Url")
+    label: String @doc(description: "The label of the product image or video.")
+    position: Int @doc(description: "The media item's position after it has been sorted.")
+    disabled: Boolean @doc(description: "Whether the image is hidden from view.")
+}
+
+type ProductImageResize implements ListingImageInterface @doc(description: "Product image information. Contains the image URL and label.") {
+}
+
+type BestSellerProducts @doc(description: "The best seller products object returned in the best seller query.") {
+    items: [ProductInterface] @doc(description: "An array of products best seller.")
+    page_info: SearchResultPageInfo @doc(description: "An object that includes the page_info and currentPage values specified in the query.")
+    total_count: Int @doc(description: "The number of products in the category that are marked as visible. By default, in complex products, parent products are visible, but their child products are not.")
+}

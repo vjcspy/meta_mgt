@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table comment="chiaki_page_chiakipage Table" engine="innodb" name="chiaki_page_chiakipage" resource="default">
+        <column comment="Entity Id" identity="true" name="chiakipage_id" nullable="false" padding="6" unsigned="true"
+                xsi:type="smallint"/>
+        <constraint referenceId="PRIMARY" xsi:type="primary">
+            <column name="chiakipage_id"/>
+        </constraint>
+        <column length="32" name="type" nullable="true" xsi:type="varchar"/>
+        <column name="config_data" nullable="true" xsi:type="text"/>
+        <column length="8" name="store_id" nullable="true" xsi:type="varchar"/>
+        <column length="16" name="user_id" nullable="true" xsi:type="varchar"/>
+        <column length="32" name="url" nullable="true" xsi:type="varchar"/>
+        <column name="additional_data" nullable="true" xsi:type="text"/>
+
+        <constraint xsi:type="unique" referenceId="USER_TYPE_STORE_URL">
+            <column name="user_id"/>
+            <column name="store_id"/>
+            <column name="type"/>
+            <column name="url"/>
+        </constraint>
+    </table>
+</schema>

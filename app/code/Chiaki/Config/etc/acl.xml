@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+	<acl>
+		<resources>
+			<resource id="Magento_Backend::admin">
+				<resource id="Chiaki_Config::ChiakiConfig" sortOrder="10" title="ChiakiConfig">
+					<resource id="Chiaki_Config::ChiakiConfig_save" sortOrder="10" title="Save ChiakiConfig"/>
+					<resource id="Chiaki_Config::ChiakiConfig_delete" sortOrder="20" title="Delete ChiakiConfig"/>
+					<resource id="Chiaki_Config::ChiakiConfig_update" sortOrder="30" title="Update ChiakiConfig"/>
+					<resource id="Chiaki_Config::ChiakiConfig_view" sortOrder="40" title="View ChiakiConfig"/>
+				</resource>
+			</resource>
+		</resources>
+	</acl>
+</config>

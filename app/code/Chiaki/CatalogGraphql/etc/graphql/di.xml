@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <type name="Magento\CatalogGraphQl\Model\Config\CategoryAttributeReader">
+        <arguments>
+            <argument name="categoryAttributeResolvers" xsi:type="array">
+                <item name="mobile_banner_image" xsi:type="string">Chiaki\CatalogGraphql\Model\Resolver\Category\MobileBannerImage</item>
+                <item name="app_background_image" xsi:type="string">Chiaki\CatalogGraphql\Model\Resolver\Category\AppBackgroundImage</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\CatalogGraphQl\Model\Resolver\Product\MediaGallery\Url">
+        <plugin name="add_resize_image"
+                type="Chiaki\CatalogGraphql\Plugin\UrlPlugin" sortOrder="10"/>
+    </type>
+</config>

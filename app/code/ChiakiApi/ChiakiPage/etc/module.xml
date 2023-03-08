@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="ChiakiApi_ChiakiPage">
+        <sequence>
+            <module name="IzRetail_ApiBase"/>
+            <module name="Chiaki_Page"/>
+        </sequence>
+    </module>
+</config>

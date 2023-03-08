@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <catalog>
+            <product_graphql_image>
+                <enable_resize>0</enable_resize>
+                <small_image_height>350</small_image_height>
+            </product_graphql_image>
+            <best_seller>
+                <period>daily</period>
+                <period_category>90</period_category>
+            </best_seller>
+        </catalog>
+    </default>
+</config>

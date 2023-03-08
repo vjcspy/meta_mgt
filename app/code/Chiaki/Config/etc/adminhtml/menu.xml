@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add action="chiaki_config/chiakiconfig/index" id="Chiaki_Config::chiaki_config_chiakiconfig" module="Chiaki_Config" parent="Chiaki::top_level" resource="Magento_Backend::content" sortOrder="9999" title="ChiakiConfig"/>
+	</menu>
+</config>
